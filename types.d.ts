@@ -7,7 +7,7 @@ type Question = {
     id: string,
     unit: number,
     name: string,
-    description: number,
+    description: String,
     status: number,
     type: string,
     subjectId: string | null

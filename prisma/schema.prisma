@@ -33,7 +33,7 @@ model Question {
     id          String       @id @default(cuid())
     unit        Int
     name        String
-    description Int
+    description String
     status      Int
     type        QuestionType
     Subject     Subject?     @relation(fields: [subjectId], references: [id])
@@ -41,7 +41,7 @@ model Question {
 }
 
 enum QuestionType {
-    date
-    description
-    person
+    DATES
+    TERMINOLOGIE
+    FIGURES
 }
