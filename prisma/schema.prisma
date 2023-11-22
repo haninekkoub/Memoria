@@ -1,0 +1,47 @@
+// schema.prisma
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider  = "postgresql"
+    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+//user table 
+model User {
+    id        String   @id @default(cuid())
+    name      String?
+    email     String?  @unique
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+    @@map(name: "users")
+}
+
+//subject table
+model Subject {
+    id        String     @id @default(cuid())
+    name      String
+    Questions Question[]
+}
+
+//question table
+model Question {
+    id          String       @id @default(cuid())
+    unit        Int
+    name        String
+    description Int
+    status      Int
+    type        QuestionType
+    Subject     Subject?     @relation(fields: [subjectId], references: [id])
+    subjectId   String?
+}
+
+enum QuestionType {
+    date
+    description
+    person
+}
