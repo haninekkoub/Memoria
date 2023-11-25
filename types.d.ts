@@ -1,6 +1,6 @@
 type Subject = {
-    "id": string,
-    "name": string,
+    id: string,
+    name: string
 }
 
 type Question = {

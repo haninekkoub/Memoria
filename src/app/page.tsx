@@ -1,5 +1,9 @@
-import Image from "next/image";
+import Subject from "@/components/subject";
 
 export default function Home() {
-  return <div>this site web is for memoria app</div>;
+  return (
+    <div>
+      <Subject />
+    </div>
+  );
 }
