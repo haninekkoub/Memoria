@@ -1,10 +1,9 @@
 import getAllQuestions from "@/lib/getAllQuestions";
 import getSubject from "@/lib/getSubject";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 import Link from "next/link";
-import Box from "./components/box";
 import clsx from "clsx";
+import { notFound } from "next/navigation";
 
 type Params = {
   params: {
@@ -29,14 +28,12 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
   const subject = await SubjectData;
 
   const subjectId = subject?.id;
-  const { questions, questionCount, units } = await getAllQuestions(subjectId);
+  if (!subjectId) notFound();
+  const { questionCount, units } = await getAllQuestions(subjectId);
 
-  console.log("this is count", units[1]);
-  console.log("this is questions", units);
   const displayedUnits = units.concat(
     Array(Math.max(0, 3 - units.length)).fill(null)
   );
-  console.log("this is displayedUnits", displayedUnits);
 
   return (
     <div>
@@ -45,7 +42,7 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
       </Link>
       <h1 className="text-4xl font-bold ">{subject?.name}</h1>
       <div className="flex justify-between items-center">
-        <Link href={"/"}>
+        <Link href={`/${subject.name}/revision`}>
           <h1 className="text-4xl font-bold underline">Revision</h1>
         </Link>
         <Link href={"/"}>

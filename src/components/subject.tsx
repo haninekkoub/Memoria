@@ -13,9 +13,7 @@ export default async function subject() {
           <Link
             href={`/${subject.name}`}
             className={clsx(
-              [
-                "w-full mx-auto h-40 flex-2  relative rounded-3xl drop-shadow-3xl",
-              ],
+              "w-full mx-auto h-40 flex-2  relative rounded-3xl drop-shadow-3xl",
               {
                 "bg-green-200": i === 0,
                 "bg-red-200": i === 1,
