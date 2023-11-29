@@ -9,6 +9,13 @@ type Question = {
     name: string,
     description: String,
     status: number,
-    type: string,
+    type: QuestionType,
     subjectId: string | null
   };
+
+  enum QuestionType {
+    DATES = 'DATES',
+    TERMINOLOGIE = 'TERMINOLOGIE',
+    FIGURES = 'FIGURES',
+  };
+  
