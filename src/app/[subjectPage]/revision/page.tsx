@@ -3,6 +3,7 @@ import getSubject from "@/lib/getSubject";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AddQuestionForm from "../components/addQuestionForm";
+import DeletQuestion from "../components/deletQuestion";
 
 type Params = {
   params: {
@@ -15,12 +16,10 @@ export default async function Revision({ params: { subjectPage } }: Params) {
   if (!subject) notFound();
   const { questions } = await getAllQuestions(subject.id);
 
-  console.log({ questions });
   return (
     <div>
       <Link href="/">go gome </Link>
       <Link href={`/${subjectPage}`}>back</Link>
-      <AddQuestionForm />
       {questions.map((question) => {
         return (
           <div
@@ -30,6 +29,7 @@ export default async function Revision({ params: { subjectPage } }: Params) {
             <h3>{question.status}</h3>
             <h3>{question.name}</h3>
             <h3>{question.description}</h3>
+            <DeletQuestion questionId={question.id} />
           </div>
         );
       })}
