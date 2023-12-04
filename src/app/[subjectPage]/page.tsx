@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import clsx from "clsx";
 import { notFound } from "next/navigation";
+import AddQuestionForm from "./components/addQuestionForm";
 
 type Params = {
   params: {
@@ -15,8 +16,7 @@ type Params = {
 export async function generateMetadata({
   params: { subjectPage },
 }: Params): Promise<Metadata> {
-  const subjectData: Promise<Subject | null> = getSubject(subjectPage);
-  const subject: Subject | null = await subjectData;
+  const subject = await getSubject(subjectPage);
   return {
     title: subject?.name,
     description: `this is the page of ${subject?.name}`,
@@ -24,12 +24,10 @@ export async function generateMetadata({
 }
 
 export default async function subjectPage({ params: { subjectPage } }: Params) {
-  const SubjectData: Promise<Subject | null> = getSubject(subjectPage);
-  const subject = await SubjectData;
+  const subject = await getSubject(subjectPage);
+  if (!subject) notFound();
 
-  const subjectId = subject?.id;
-  if (!subjectId) notFound();
-  const { questionCount, units } = await getAllQuestions(subjectId);
+  const { questionsCount, units } = await getAllQuestions(subject.id);
 
   const displayedUnits = units.concat(
     Array(Math.max(0, 3 - units.length)).fill(null)
@@ -46,7 +44,7 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
           <h1 className="text-4xl font-bold underline">Revision</h1>
         </Link>
         <Link href={"/"}>
-          <h1 className="text-4xl font-bold underline">Exercise</h1>
+          <h1 className="text-4xl font-bold underline">quiz</h1>
         </Link>
         <Link href={"/"}>
           <h1 className="text-4xl font-bold underline">Search</h1>
@@ -55,7 +53,7 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
       <div>
         <div className="flex  justify-between items-center">
           <h3>Les unite</h3>
-          <h4>{questionCount}</h4>
+          <h4>{questionsCount}</h4>
         </div>
         <div>
           {displayedUnits.map((unit, index) => (
@@ -71,6 +69,7 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
           ))}
         </div>
       </div>
+      <AddQuestionForm />
     </div>
   );
 }

@@ -7,12 +7,6 @@ export default async function getAllQuestions(subjectId: string) {
     },
   });
 
-  const questionCount = await prisma.question.count({
-    where: {
-      subjectId: subjectId,
-    },
-  });
-
   const units = await prisma.question.groupBy({
     by: ["unit"],
     where: {
@@ -20,5 +14,5 @@ export default async function getAllQuestions(subjectId: string) {
     },
   });
 
-  return { questions, questionCount, units };
+  return { questions, questionsCount: questions.length, units };
 }

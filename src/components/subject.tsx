@@ -3,8 +3,7 @@ import Link from "next/link";
 import clsx from "clsx";
 
 export default async function subject() {
-  const SubjectData: Promise<Subject[]> = getAllSubjects();
-  const subjects = await SubjectData;
+  const subjects = await getAllSubjects();
 
   return (
     <div className=" w-full flex flex-col md:flex-row gap-6 p-6 ">
