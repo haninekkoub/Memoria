@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import AddQuestionForm from "../components/addQuestionForm";
 import DeletQuestion from "../components/deletQuestion";
+import UpdateQuestion from "../components/updateQuestionForm";
 
 type Params = {
   params: {
@@ -30,6 +31,10 @@ export default async function Revision({ params: { subjectPage } }: Params) {
             <h3>{question.name}</h3>
             <h3>{question.description}</h3>
             <DeletQuestion questionId={question.id} />
+            <UpdateQuestion
+              currentQuestion={question}
+              questionId={question.id}
+            />
           </div>
         );
       })}

@@ -3,14 +3,23 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function AddQuestionForm() {
+export default function UpdateQuestion({
+  currentQuestion,
+  questionId,
+}: {
+  currentQuestion: Question;
+  questionId: string;
+}) {
   const router = useRouter();
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [unit, setUnit] = useState(Number);
-  const [type, setType] = useState("DATES");
-  const [subjectId, setSubjectId] = useState("");
+  const [name, setName] = useState(currentQuestion.name.toString());
+  const [description, setDescription] = useState(
+    currentQuestion.description.toString()
+  );
+  const [unit, setUnit] = useState(currentQuestion.unit);
+  const [type, setType] = useState(`${currentQuestion.type}`);
+  const [status, setStatus] = useState(currentQuestion.status);
+  const [subjectId, setSubjectId] = useState(`${currentQuestion.subjectId}`);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -20,12 +29,13 @@ export default function AddQuestionForm() {
       description,
       unit,
       subjectId,
+      status,
       type,
     };
 
     try {
-      await fetch("/api/add-question", {
-        method: "POST",
+      await fetch(`/api/question/${questionId}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -49,6 +59,15 @@ export default function AddQuestionForm() {
             type="number"
             onChange={(e) => setUnit(Number(e.target.value))}
             value={unit}
+          />
+        </label>
+        <label>
+          <span>status</span>
+          <input
+            required
+            type="number"
+            onChange={(e) => setStatus(Number(e.target.value))}
+            value={status}
           />
         </label>
         <label>
