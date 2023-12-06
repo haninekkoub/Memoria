@@ -30,13 +30,13 @@ model Subject {
 
 //question table
 model Question {
-    id          String        @id @default(cuid())
+    id          String       @id @default(cuid())
     unit        Int
     name        String
     description String
     status      Int
-    type        QuestionType?
-    Subject     Subject?      @relation(fields: [subjectId], references: [id])
+    type        QuestionType
+    Subject     Subject?     @relation(fields: [subjectId], references: [id])
     subjectId   String?
 }
 

@@ -45,7 +45,7 @@ export default function UpdateQuestion({
       });
       router.refresh();
       router.prefetch(`/${subjectPage}/${questionId}`);
-      router.push(`/${subjectPage}/${questionId}`);
+      router.back();
     } catch (err) {
       console.error(err);
     }
