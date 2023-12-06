@@ -23,19 +23,18 @@ export default async function Revision({ params: { subjectPage } }: Params) {
       <Link href={`/${subjectPage}`}>back</Link>
       {questions.map((question) => {
         return (
-          <div
-            key={question.id}
-            className="flex gap-2 justify-center items-center bg-orange-200 mb-4 p-4 rounded-md"
-          >
-            <h3>{question.status}</h3>
-            <h3>{question.name}</h3>
-            <h3>{question.description}</h3>
-            <DeletQuestion questionId={question.id} />
-            <UpdateQuestion
-              currentQuestion={question}
-              questionId={question.id}
-            />
-          </div>
+          <Link href={`/${subjectPage}/${question.id}`}>
+            <div
+              key={question.id}
+              className="flex gap-2 justify-center items-center bg-orange-200 mb-4 p-4 rounded-md"
+            >
+              <h3>{question.status}</h3>
+              <h3>{question.name}</h3>
+              <h3>{question.description}</h3>
+              <DeletQuestion questionId={question.id} />
+              <Link href={`/${subjectPage}/${question.id}/update`}>update</Link>
+            </div>
+          </Link>
         );
       })}
     </div>

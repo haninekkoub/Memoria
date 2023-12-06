@@ -6,9 +6,11 @@ import { useRouter } from "next/navigation";
 export default function UpdateQuestion({
   currentQuestion,
   questionId,
+  subjectPage,
 }: {
   currentQuestion: Question;
   questionId: string;
+  subjectPage: string;
 }) {
   const router = useRouter();
 
@@ -42,6 +44,8 @@ export default function UpdateQuestion({
         body: JSON.stringify(question),
       });
       router.refresh();
+      router.prefetch(`/${subjectPage}/${questionId}`);
+      router.push(`/${subjectPage}/${questionId}`);
     } catch (err) {
       console.error(err);
     }
