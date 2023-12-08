@@ -1,6 +1,5 @@
 import UpdateQuestion from "@/app/[subjectPage]/components/updateQuestionForm";
 import getQuestion from "@/lib/getQuestion";
-import getSubject from "@/lib/getSubject";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -14,14 +13,13 @@ type Params = {
 export default async function Updating({
   params: { questionPage, subjectPage },
 }: Params) {
-  const subject = await getSubject(subjectPage);
   const question = await getQuestion(questionPage);
 
-  if (!subject || !questionPage || !question) notFound();
+  if (!questionPage || !question) notFound();
 
   return (
     <div>
-      <Link href={`/${subjectPage}/${question.id}`}>go back</Link>
+      <Link href={`/${subjectPage}/${question.slug}`}>go back</Link>
       <UpdateQuestion
         currentQuestion={question}
         questionId={question.id}

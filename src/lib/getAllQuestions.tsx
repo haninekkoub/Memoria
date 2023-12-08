@@ -1,16 +1,16 @@
 import prisma from "./prisma";
 
-export default async function getAllQuestions(subjectId: string) {
+export default async function getAllQuestions(subjectPage: string) {
   const questions = await prisma.question.findMany({
     where: {
-      subjectId: subjectId,
+      subjectName: subjectPage,
     },
   });
 
   const units = await prisma.question.groupBy({
     by: ["unit"],
     where: {
-      subjectId: subjectId,
+      subjectName: subjectPage,
     },
   });
 

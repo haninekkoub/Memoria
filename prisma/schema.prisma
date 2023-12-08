@@ -31,13 +31,14 @@ model Subject {
 //question table
 model Question {
     id          String       @id @default(cuid())
+    slug        String       @unique
     unit        Int
-    name        String
+    name        String       @unique
     description String
     status      Int
     type        QuestionType
-    Subject     Subject?     @relation(fields: [subjectId], references: [id])
-    subjectId   String?
+    subjectName String?
+    subject     Subject?     @relation(fields: [subjectName], references: [name])
 }
 
 enum QuestionType {

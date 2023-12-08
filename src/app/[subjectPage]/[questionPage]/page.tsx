@@ -1,9 +1,8 @@
 import getQuestion from "@/lib/getQuestion";
-import getSubject from "@/lib/getSubject";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import DeletQuestion from "../components/deletQuestion";
+import DeletQuestion from "../components/deleteQuestion";
 
 type Params = {
   params: {
@@ -26,12 +25,8 @@ export async function generateMetadata({
 export default async function subjectPage({
   params: { questionPage, subjectPage },
 }: Params) {
-  const subject = await getSubject(subjectPage);
   const question = await getQuestion(questionPage);
-  if (!subject || !questionPage) notFound();
-  if (!question) {
-    return <p>Question not found</p>;
-  }
+  if (!question) notFound();
 
   return (
     <div>

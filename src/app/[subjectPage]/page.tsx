@@ -1,10 +1,10 @@
 import getAllQuestions from "@/lib/getAllQuestions";
-import getSubject from "@/lib/getSubject";
 import { Metadata } from "next";
 import Link from "next/link";
 import clsx from "clsx";
+import AddNewQuestionForm from "./components/addNewQuestion";
+import getSubject from "@/lib/getSubject";
 import { notFound } from "next/navigation";
-import AddQuestionForm from "./components/addQuestionForm";
 
 type Params = {
   params: {
@@ -16,31 +16,28 @@ type Params = {
 export async function generateMetadata({
   params: { subjectPage },
 }: Params): Promise<Metadata> {
-  const subject = await getSubject(subjectPage);
   return {
-    title: subject?.name,
-    description: `this is the page of ${subject?.name}`,
+    title: subjectPage,
+    description: `this is the page of ${subjectPage}`,
   };
 }
 
 export default async function subjectPage({ params: { subjectPage } }: Params) {
   const subject = await getSubject(subjectPage);
   if (!subject) notFound();
-
-  const { questionsCount, units } = await getAllQuestions(subject.id);
+  const { questionsCount, units } = await getAllQuestions(subjectPage);
 
   const displayedUnits = units.concat(
     Array(Math.max(0, 3 - units.length)).fill(null)
   );
-
   return (
     <div>
       <Link href={"/"}>
         <h1 className="text-4xl font-bold underline">Home</h1>
       </Link>
-      <h1 className="text-4xl font-bold ">{subject?.name}</h1>
+      <h1 className="text-4xl font-bold ">{subjectPage}</h1>
       <div className="flex justify-between items-center">
-        <Link href={`/${subject.name}/revision`}>
+        <Link href={`/${subjectPage}/revision`}>
           <h1 className="text-4xl font-bold underline">Revision</h1>
         </Link>
         <Link href={"/"}>
@@ -69,7 +66,8 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
           ))}
         </div>
       </div>
-      <AddQuestionForm />
+      {/* <AddQuestionForm /> */}
+      <AddNewQuestionForm />
     </div>
   );
 }
