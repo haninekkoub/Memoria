@@ -1,7 +1,7 @@
-import UpdateQuestion from "@/app/[subjectPage]/components/updateQuestionForm";
 import getQuestion from "@/lib/getQuestion";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import UpdateQuestion from "../../components/updateQuestion";
 
 type Params = {
   params: {
@@ -20,11 +20,7 @@ export default async function Updating({
   return (
     <div>
       <Link href={`/${subjectPage}/${question.slug}`}>go back</Link>
-      <UpdateQuestion
-        currentQuestion={question}
-        questionId={question.id}
-        subjectPage={subjectPage}
-      />
+      <UpdateQuestion currentQuestion={question} questionId={question.id} />
     </div>
   );
 }

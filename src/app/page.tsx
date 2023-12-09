@@ -1,6 +1,7 @@
 import getAllSubjects from "@/lib/getAllSubjects";
 import Link from "next/link";
 import clsx from "clsx";
+import AddNewQuestionForm from "@/components/addNewSubject";
 
 export default async function Home() {
   const subjects = await getAllSubjects();
@@ -12,10 +13,11 @@ export default async function Home() {
           <Link
             href={`/${subject.name}`}
             className={clsx(
-              "w-full mx-auto h-40 flex-2  relative rounded-3xl drop-shadow-3xl",
+              "w-full mx-auto h-40 flex-2 relative rounded-3xl drop-shadow-3xl",
               {
                 "bg-green-200": i === 0,
                 "bg-red-200": i === 1,
+                "bg-blue-200": i === 2,
               }
             )}
             key={i}
@@ -26,6 +28,7 @@ export default async function Home() {
           </Link>
         );
       })}
+      <AddNewQuestionForm />
     </div>
   );
 }

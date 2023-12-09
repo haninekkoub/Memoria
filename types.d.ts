@@ -10,7 +10,7 @@ type Question = {
     description: string,
     status: number,
     type: QuestionType,
-    subjectId: string | null
+    subjectName: string | null
   };
 
   type QuestionType = "DATES" | "TERMINOLOGIE" | "FIGURES";

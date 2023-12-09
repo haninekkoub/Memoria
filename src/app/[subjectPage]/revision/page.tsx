@@ -31,7 +31,7 @@ export default async function Revision({ params: { subjectPage } }: Params) {
               <h3>{question.description}</h3>
             </Link>
             <DeletQuestion questionId={question.id} />
-            <Link href={`/${subjectPage}/${question.id}/update`}>update</Link>
+            <Link href={`/${subjectPage}/${question.slug}/update`}>update</Link>
           </div>
         );
       })}
