@@ -13,14 +13,17 @@ export default async function Revision({ params: { subjectPage } }: Params) {
   unstable_noStore;
 
   const { questions } = await getAllQuestions(subjectPage);
-  console.log(questions);
+
   return (
     <div>
       <Link href="/">go gome </Link>
       <Link href={`/${subjectPage}`}>back</Link>
       {questions.map((question) => {
         return (
-          <div className="flex gap-6 justify-center items-center bg-orange-200 mb-4 p-4 rounded-md">
+          <div
+            className="flex gap-6 justify-center items-center bg-orange-200 mb-4 p-4 rounded-md"
+            key={question.id}
+          >
             <Link
               href={`/${subjectPage}/${question.slug}`}
               key={question.id}

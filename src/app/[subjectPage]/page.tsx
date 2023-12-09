@@ -40,7 +40,7 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
         <Link href={`/${subjectPage}/revision`}>
           <h1 className="text-4xl font-bold underline">Revision</h1>
         </Link>
-        <Link href={"/"}>
+        <Link href={`/${subjectPage}/quiz`}>
           <h1 className="text-4xl font-bold underline">quiz</h1>
         </Link>
         <Link href={"/"}>
@@ -66,7 +66,6 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
           ))}
         </div>
       </div>
-      {/* <AddQuestionForm /> */}
       <AddNewQuestionForm />
     </div>
   );
