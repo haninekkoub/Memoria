@@ -26,7 +26,8 @@ export default function QuizForm({ questions }: { questions: Question[] }) {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
   }, []);
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     // Update current question and random part
     const newQuestion = questions[currentQuestionIndex + 1];
     setCurrentQuestion(newQuestion);
@@ -37,6 +38,7 @@ export default function QuizForm({ questions }: { questions: Question[] }) {
     // Clear user response
     setUserResponse("");
   };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Submitted:", userResponse);
