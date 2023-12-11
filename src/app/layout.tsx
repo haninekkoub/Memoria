@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/navBar";
+import localFont from "next/font/local";
 
-const inter = Inter({ subsets: ["latin"] });
+const drukWideWeb = localFont({
+  src: "../font/Druk-Wide-Web-Medium-Regular.ttf",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Memoria",
@@ -17,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-blue-500`}>
+      <body className={drukWideWeb.className}>
         <NavBar />
         {children}
       </body>
