@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import slugify from "slugify";
+import { SubjectSchema } from "@/lib/types";
 
 export async function createNewQuestion(formData: FormData) {
   const name = formData.get("name") as string;
@@ -62,13 +63,38 @@ export async function updateQuestion(formData: FormData) {
   redirect(`/${subjectName}/revision`);
 }
 
-export async function createNewSubject(formData: FormData) {
-  const name = formData.get("subjectName") as string;
+export async function createNewSubject(newSubject: unknown) {
+  const result = SubjectSchema.safeParse(newSubject);
+  if (!result.success) {
+    let errorMessage = "";
+    result.error.issues.forEach((issue) => {
+      errorMessage += issue.message + "\n";
+    });
 
-  await prisma.subject.create({
-    data: {
-      name,
-    },
+    return { error: errorMessage };
+  }
+  try {
+    const existingSubject = await prisma.subject.findFirst({
+      where: { name: result.data.name },
+    });
+
+    if (existingSubject) {
+      throw new Error("Subject name already exists."); // Throw custom error
+    }
+
+    await prisma.subject.create({
+      data: { name: result.data.name },
+    });
+    revalidatePath("/");
+  } catch (error) {
+    return { error: "Subject name already exists." };
+  }
+}
+
+export async function deleteSubject(formData: FormData) {
+  const id = formData.get("subjectId") as string;
+  await prisma.subject.delete({
+    where: { id },
   });
   revalidatePath("/");
 }
