@@ -2,7 +2,6 @@ import getAllQuestions from "@/lib/getAllQuestions";
 import { Metadata } from "next";
 import Link from "next/link";
 import clsx from "clsx";
-import AddNewQuestionForm from "./components/addNewQuestion";
 import getSubject from "@/lib/getSubject";
 import { notFound } from "next/navigation";
 
@@ -66,7 +65,6 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
           ))}
         </div>
       </div>
-      <AddNewQuestionForm />
     </div>
   );
 }

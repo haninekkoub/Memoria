@@ -1,7 +1,7 @@
 import getAllQuestions from "@/lib/getAllQuestions";
 import Link from "next/link";
 import { unstable_noStore } from "next/cache";
-import DeletQuestion from "../components/deleteQuestion";
+import AddNewQuestionForm from "../components/addNewQuestion";
 
 type Params = {
   params: {
@@ -16,13 +16,15 @@ export default async function Revision({ params: { subjectPage } }: Params) {
 
   return (
     <div>
-      <Link href="/">go gome </Link>
+      <Link href="/" className="font-drukWideWeb">
+        go gome
+      </Link>
       <Link href={`/${subjectPage}`}>back</Link>
       {questions.map((question) => {
         return (
           <div
-            className="flex gap-6 justify-center items-center bg-orange-200 mb-4 p-4 rounded-md"
             key={question.id}
+            className="bg-background border-[#5A1C00] mb-3 rounded-xl flex gap-6 justify-center items-center p-4 font-aThuluth"
           >
             <Link
               href={`/${subjectPage}/${question.slug}`}
@@ -33,11 +35,12 @@ export default async function Revision({ params: { subjectPage } }: Params) {
               <h3>{question.name}</h3>
               <h3>{question.description}</h3>
             </Link>
-            <DeletQuestion questionId={question.id} />
-            <Link href={`/${subjectPage}/${question.slug}/update`}>update</Link>
+            {/* <DeletQuestion questionId={question.id} /> */}
+            {/* <Link href={`/${subjectPage}/${question.slug}/update`}>update</Link> */}
           </div>
         );
       })}
+      <AddNewQuestionForm />
     </div>
   );
 }

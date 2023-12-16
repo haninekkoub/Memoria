@@ -7,6 +7,12 @@ import { Toaster } from "react-hot-toast";
 const drukWideWeb = localFont({
   src: "../font/Druk-Wide-Web-Medium-Regular.ttf",
   display: "swap",
+  variable: "--drukWideWeb",
+});
+const aThuluth = localFont({
+  src: "../font/A.Thuluth.ttf",
+  display: "swap",
+  variable: "--aThuluth",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +27,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={drukWideWeb.className}>
+      <body
+        className={`${drukWideWeb.variable} ${aThuluth.variable} bg-background `}
+      >
         <Toaster position="top-right" />
         <NavBar />
         {children}
