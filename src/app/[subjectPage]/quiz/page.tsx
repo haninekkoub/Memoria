@@ -9,7 +9,9 @@ type Params = {
 
 export default async function Quiz({ params: { subjectPage } }: Params) {
   const { questions } = await getAllQuestions(subjectPage);
-
+  if (!questions.length) {
+    return <p>No questions found</p>;
+  }
   return (
     <div>
       <QuizForm questions={questions} />

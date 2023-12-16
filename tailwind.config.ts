@@ -16,10 +16,15 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        drukWideWeb: ["var(--drukWideWeb)"],
+        aThuluth: ["var(--aThuluth)"],
+      },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
+        border: "rgba(90, 28, 0, 1)",
+        input: "rgba(90, 28, 0, 1)",
         ring: "hsl(var(--ring))",
+        brown: "rgba(90, 28, 0, 1)",
         background: "#fff3cd",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -27,7 +32,7 @@ module.exports = {
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
+          DEFAULT: "rgba(249, 229, 205, 0.5)",
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
