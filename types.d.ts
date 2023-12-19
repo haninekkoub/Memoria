@@ -1,6 +1,7 @@
 type Subject = {
     id: string,
     name: string
+    color: string | null
 }
 
 type Question = {

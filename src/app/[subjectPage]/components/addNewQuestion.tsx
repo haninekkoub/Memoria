@@ -1,6 +1,11 @@
 import { createNewQuestion } from "@/app/action";
 import getAllSubject from "@/lib/getAllSubjects";
 import { notFound } from "next/navigation";
+import { Button } from "@/components/ui/button";
+
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 
 export default async function AddNewQuestionForm() {
   const subjects = await getAllSubject();
@@ -9,22 +14,22 @@ export default async function AddNewQuestionForm() {
   return (
     <div>
       <form
-        className="bg-red-200 flex flex-col justify-center items-center gap-4 p-4 mb-4"
+        className="flex flex-col justify-center items-center gap-4 p-4 mb-4"
         action={createNewQuestion}
       >
-        <label>
+        <Label>
           <span>unit</span>
-          <input required type="number" name="unit" />
-        </label>
-        <label>
+          <Input required type="number" name="unit" />
+        </Label>
+        <Label>
           <span>type</span>
           <select name="type">
             <option value="DATES">date</option>
             <option value="TERMINOLOGIE">terminologie</option>
             <option value="FIGURES">figures</option>
           </select>
-        </label>
-        <label>
+        </Label>
+        <Label>
           <span>subjectName</span>
           <select name="subjectName">
             {subjects.map((subject, i) => {
@@ -35,16 +40,21 @@ export default async function AddNewQuestionForm() {
               );
             })}
           </select>
-        </label>
-        <label>
+        </Label>
+        <Label>
           <span>name</span>
-          <input required type="text" name="name" />
-        </label>
-        <label>
+          <Input required type="text" name="name" />
+        </Label>
+        <Label>
           <span>description</span>
           <textarea required name="description" />
-        </label>
-        <button>submit</button>
+        </Label>
+
+        <DialogFooter className="sm:justify-start">
+          <DialogClose asChild>
+            <Button>submit</Button>
+          </DialogClose>
+        </DialogFooter>
       </form>
     </div>
   );

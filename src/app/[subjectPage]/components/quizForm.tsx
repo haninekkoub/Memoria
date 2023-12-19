@@ -54,19 +54,19 @@ export default function QuizForm({ questions }: { questions: Question[] }) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-6 text-brown">
-      <div className="bg-background font-aThuluth text-3xl rounded-2xl w-full flex justify-center items-center py-12 md:py-10 md:px-20 md:w-fit border border-brown">
+    <div className="flex flex-col justify-center items-center gap-6 text-brown mt-16 md:mt-0">
+      <div className="bg-background font-aThuluth text-3xl rounded-2xl w-full flex justify-center items-center py-14 md:px-20 md:w-fit border border-brown">
         {randomPart}
       </div>
-      <form className="flex flex-col justify-center items-center gap-12 w-full">
+      <form className="flex flex-col justify-center items-center gap-12 md:gap-6 w-full">
         <Input
           onChange={(e) => setUserResponse(e.target.value)}
           placeholder={`Respond   here`}
           type="text"
           value={userResponse}
-          className=""
+          className=" font-aThuluth text-3xl rounded-2xl py-8 md:py-10 md:px-20 md:w-fit"
         />
-        <div className="flex justify-center items-center gap-6 ">
+        <div className="flex justify-center items-center gap-6">
           <button
             onClick={handleSubmit}
             className={`p-4 rounded-xl text-xl border border-brown font-drukWideWeb ${

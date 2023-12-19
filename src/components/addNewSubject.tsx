@@ -2,8 +2,14 @@
 import { createNewSubject } from "@/app/action";
 import { SubjectSchema } from "@/lib/types";
 import toast from "react-hot-toast";
+import { DialogClose, DialogFooter } from "./ui/dialog";
+import { Button } from "./ui/button";
+import { useState } from "react";
 
-export default function AddNewQuestionForm() {
+export default function AddNewSubject() {
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>("");
+  console.log(errorMessage);
   async function clientAction(formData: FormData) {
     const newSubject = {
       name: formData.get("subjectName"),
@@ -23,7 +29,11 @@ export default function AddNewQuestionForm() {
     //server side validation
     const response = await createNewSubject(result.data);
     if (response?.error) {
-      toast.error(response.error);
+      setIsSuccess(false);
+      setErrorMessage(response.error);
+    } else {
+      setIsSuccess(true); // Set success message
+      setErrorMessage(null);
     }
   }
   return (
@@ -37,6 +47,11 @@ export default function AddNewQuestionForm() {
           <input required type="text" name="subjectName" />
         </label>
         <button>submit</button>
+        {isSuccess !== null && (
+          <span className={isSuccess ? "text-green-500" : "text-red-500"}>
+            {isSuccess ? "Subject added" : errorMessage}
+          </span>
+        )}
       </form>
     </div>
   );

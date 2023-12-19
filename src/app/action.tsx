@@ -27,7 +27,6 @@ export async function createNewQuestion(formData: FormData) {
   revalidatePath("/revision");
   redirect(`/${subjectName}/revision`);
 }
-
 export async function deleteQuestion(formData: FormData) {
   const id = formData.get("questionId") as string;
   await prisma.question.delete({

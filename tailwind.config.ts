@@ -32,7 +32,7 @@ module.exports = {
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "rgba(249, 229, 205, 0.5)",
+          DEFAULT: "rgba(249, 229, 205, 0.3)",
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
