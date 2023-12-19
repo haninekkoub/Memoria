@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/components/navBar";
 import localFont from "next/font/local";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 const drukWideWeb = localFont({
   src: "../font/Druk-Wide-Web-Medium-Regular.ttf",
@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${drukWideWeb.variable} ${aThuluth.variable} bg-background `}
       >
-        <Toaster position="top-right" />
+        <Toaster />
         <NavBar />
         {children}
       </body>

@@ -6,6 +6,20 @@ import { redirect } from "next/navigation";
 import slugify from "slugify";
 import { SubjectSchema } from "@/lib/types";
 
+export const getErrorMessage = (error: unknown): string => {
+  let message: string;
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (error && typeof error === "object" && "message" in error) {
+    message = String(error.message);
+  } else if (typeof error === "string") {
+    message = error;
+  } else {
+    message = " Something went wrong";
+  }
+  return message;
+};
+
 export async function createNewQuestion(formData: FormData) {
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
@@ -78,15 +92,15 @@ export async function createNewSubject(newSubject: unknown) {
     });
 
     if (existingSubject) {
-      throw new Error("Subject name already exists."); // Throw custom error
+      throw new Error("Subject name already exists.");
     }
 
     await prisma.subject.create({
-      data: { name: result.data.name },
+      data: { name: result.data.name, color: result.data.color },
     });
     revalidatePath("/");
   } catch (error) {
-    return { error: "Subject name already exists." };
+    return { error: getErrorMessage(error) };
   }
 }
 
