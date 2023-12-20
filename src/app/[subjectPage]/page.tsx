@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import getSubject from "@/lib/getSubject";
 import { notFound } from "next/navigation";
+import getAllSubjects from "@/lib/getAllSubjects";
 
 type Params = {
   params: {
@@ -23,7 +24,7 @@ export async function generateMetadata({
 export default async function subjectPage({ params: { subjectPage } }: Params) {
   const subject = await getSubject(subjectPage);
   if (!subject) notFound();
-  const { questionsCount, units } = await getAllQuestions(subjectPage);
+  const { questionsCount, units } = await getAllQuestions(subject.name);
 
   const displayedUnits = units.concat(
     Array(Math.max(0, 3 - units.length)).fill(null)
@@ -96,4 +97,11 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
       </div>
     </div>
   );
+}
+export async function generateStaticParams() {
+  const subjects = await getAllSubjects();
+
+  return subjects.map((subject) => ({
+    subjectPage: subject.slug,
+  }));
 }

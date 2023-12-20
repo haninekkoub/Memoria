@@ -27,6 +27,8 @@ export async function createNewQuestion(formData: FormData) {
   const subjectName = formData.get("subjectName") as string;
   const type = formData.get("type") as "DATES" | "TERMINOLOGIE" | "FIGURES";
   const slug = slugify(name);
+  const subjectPage = slugify(subjectName);
+
   await prisma.question.create({
     data: {
       name,
@@ -39,7 +41,7 @@ export async function createNewQuestion(formData: FormData) {
     },
   });
   revalidatePath("/revision");
-  redirect(`/${subjectName}/revision`);
+  redirect(`/${subjectPage}/revision`);
 }
 export async function deleteQuestion(formData: FormData) {
   const id = formData.get("questionId") as string;
@@ -58,6 +60,7 @@ export async function updateQuestion(formData: FormData) {
   const subjectName = formData.get("subjectName") as string;
   const type = formData.get("type") as "DATES" | "TERMINOLOGIE" | "FIGURES";
   const slug = slugify(name);
+  const subjectPage = slugify(subjectName);
 
   await prisma.question.update({
     where: { id },
@@ -73,7 +76,8 @@ export async function updateQuestion(formData: FormData) {
   });
 
   revalidatePath("/revision");
-  redirect(`/${subjectName}/revision`);
+
+  redirect(`/${subjectPage}/revision`);
 }
 
 export async function createNewSubject(newSubject: unknown) {
@@ -94,9 +98,9 @@ export async function createNewSubject(newSubject: unknown) {
     if (existingSubject) {
       throw new Error("Subject name already exists.");
     }
-
+    const slug = slugify(result.data.name);
     await prisma.subject.create({
-      data: { name: result.data.name, color: result.data.color },
+      data: { name: result.data.name, color: result.data.color, slug },
     });
     revalidatePath("/");
   } catch (error) {

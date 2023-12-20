@@ -11,7 +11,7 @@ export default async function Subject() {
         return (
           <div className="flex flex-col gap-2 w-full flex-2 mx-auto" key={i}>
             <Link
-              href={`/${subject.name}`}
+              href={`/${subject.slug}`}
               className="h-40 relative rounded-3xl drop-shadow-3xl flex-wrap "
               style={{ backgroundColor: `${subject.color}` }}
             >
