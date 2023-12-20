@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 
 export default async function AddNewQuestionForm() {
   const subjects = await getAllSubject();
@@ -14,47 +13,75 @@ export default async function AddNewQuestionForm() {
   return (
     <div>
       <form
-        className="flex flex-col justify-center items-center gap-4 p-4 mb-4"
+        className="flex flex-col justify-center items-start gap-8"
         action={createNewQuestion}
       >
+        <div className="flex justify-between items-start md:gap-8 w-full">
+          <Label className="w-40 md:w-full">
+            <span className="text-xl md:text-2xl text-brown font-bold">
+              Subject :
+            </span>
+            <select
+              name="subjectName"
+              className="bg-background text-xl rounded-md p-2 border border-brown drop-shadow-input"
+            >
+              {subjects.map((subject, i) => {
+                return (
+                  <option key={i} value={subject.name}>
+                    {subject.name}
+                  </option>
+                );
+              })}
+            </select>
+          </Label>
+          <Label className="w-20 md:w-32">
+            <span className="text-xl md:text-2xl text-brown font-bold">
+              Unit :
+            </span>
+            <Input
+              required
+              type="number"
+              name="unit"
+              className="bg-background text-xl rounded-md p-2 border border-brown"
+            />
+          </Label>
+        </div>
         <Label>
-          <span>unit</span>
-          <Input required type="number" name="unit" />
-        </Label>
-        <Label>
-          <span>type</span>
-          <select name="type">
+          <span className="text-xl md:text-2xl text-brown font-bold">
+            Type :
+          </span>
+          <select
+            name="type"
+            className="bg-background text-xl rounded-md p-2 border border-brown drop-shadow-input"
+          >
             <option value="DATES">date</option>
             <option value="TERMINOLOGIE">terminologie</option>
             <option value="FIGURES">figures</option>
           </select>
         </Label>
         <Label>
-          <span>subjectName</span>
-          <select name="subjectName">
-            {subjects.map((subject, i) => {
-              return (
-                <option key={i} value={subject.name}>
-                  {subject.name}
-                </option>
-              );
-            })}
-          </select>
+          <span className="text-xl md:text-2xl text-brown font-bold">
+            Name :
+          </span>
+          <Input
+            required
+            type="text"
+            name="name"
+            className="bg-background text-xl rounded-md p-2 border border-brown"
+          />
         </Label>
         <Label>
-          <span>name</span>
-          <Input required type="text" name="name" />
-        </Label>
-        <Label>
-          <span>description</span>
-          <textarea required name="description" />
+          <span className="text-xl md:text-2xl text-brown font-bold">
+            Description :
+          </span>
+          <textarea
+            required
+            name="description"
+            className="bg-background text-xl rounded-md p-2 border border-brown drop-shadow-input"
+          />
         </Label>
 
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
-            <Button>submit</Button>
-          </DialogClose>
-        </DialogFooter>
+        <Button className="text-background">submit</Button>
       </form>
     </div>
   );
