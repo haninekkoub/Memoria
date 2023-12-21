@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function QuizForm({ questions }: { questions: Question[] }) {
   const [randomPart, setRandomPart] = useState("");
@@ -28,6 +28,11 @@ export default function QuizForm({ questions }: { questions: Question[] }) {
     return { question: questions[randomIndex], questionPart, respondPart };
   };
 
+  useEffect(() => {
+    const { questionPart, respondPart } = getRandomQuestionPart();
+    setRandomPart(questionPart);
+    setRespondPart(respondPart);
+  }, []);
   const handleNextQuestion = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const { questionPart, respondPart } = getRandomQuestionPart();
@@ -65,6 +70,7 @@ export default function QuizForm({ questions }: { questions: Question[] }) {
           type="text"
           value={userResponse}
           className=" font-aThuluth text-3xl rounded-2xl py-8 md:py-10 md:px-20 md:w-fit"
+          disabled={responseSubmitted}
         />
         <div className="flex justify-center items-center gap-6">
           <button
