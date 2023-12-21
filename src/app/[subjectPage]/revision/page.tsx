@@ -4,6 +4,7 @@ import { unstable_noStore } from "next/cache";
 
 import AddNewQuestionForm from "../components/addNewQuestion";
 import PopUp from "../../../components/popUp";
+import DeletQuestion from "../components/deleteQuestion";
 
 type Params = {
   params: {
@@ -22,7 +23,7 @@ export default async function Revision({ params: { subjectPage } }: Params) {
         go gome
       </Link>
       <Link href={`/${subjectPage}`}>back</Link>
-      <PopUp>
+      <PopUp title={"Add Question"}>
         <AddNewQuestionForm />
       </PopUp>
       {questions.map((question) => {
@@ -40,7 +41,7 @@ export default async function Revision({ params: { subjectPage } }: Params) {
               <h3>{question.name}</h3>
               <h3>{question.description}</h3>
             </Link>
-            {/* <DeletQuestion questionId={question.id} /> */}
+            <DeletQuestion questionId={question.id} />
             {/* <Link href={`/${subjectPage}/${question.slug}/update`}>update</Link> */}
           </div>
         );

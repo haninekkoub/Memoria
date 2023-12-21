@@ -4,6 +4,9 @@ import { createNewSubject } from "@/app/action";
 import { SubjectSchema } from "@/lib/types";
 import { toast } from "./ui/use-toast";
 import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "./ui/button";
 
 export default function AddNewSubject() {
   const [error, setError] = useState("");
@@ -41,19 +44,35 @@ export default function AddNewSubject() {
   return (
     <div>
       <form
-        className="flex flex-col justify-center items-center gap-4 p-4 mb-4"
+        className="flex flex-col justify-center items-start gap-4 p-4 mb-4"
         action={clientAction}
       >
-        <label>
-          <span>name</span>
-          <input required type="text" name="subjectName" />
+        <Label>
+          <span className="text-xl md:text-2xl text-brown font-bold">
+            Name :
+          </span>
+          <Input
+            required
+            type="text"
+            name="subjectName"
+            className="bg-background text-xl rounded-md p-2 border border-brown"
+          />
+        </Label>
+        <label className="flex justify-center items-center gap-6">
+          <span className="text-xl md:text-2xl text-brown font-bold">
+            Color :
+          </span>
+          <Input
+            required
+            type="color"
+            name="subjectColor"
+            className="bg-background text-xl rounded-md px-1 py-0.5 h-10 border border-brown w-20"
+          />
         </label>
-        <label>
-          <span>Color</span>
-          <input required type="color" name="subjectColor" />
-        </label>
-        <button>submit</button>
-        {error && <p className="text-red-500">{error}</p>}
+        <div className="w-full flex flex-col items-center ">
+          <Button className="text-background">submit</Button>
+          {error && <p className="text-red-500 ">{error}</p>}
+        </div>
       </form>
     </div>
   );
