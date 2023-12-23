@@ -19,6 +19,7 @@ module.exports = {
       fontFamily: {
         drukWideWeb: ["var(--drukWideWeb)"],
         aThuluth: ["var(--aThuluth)"],
+        expressway: ["var(--expressway)"],
       },
       colors: {
         border: "rgba(90, 28, 0, 1)",
