@@ -28,21 +28,33 @@ export async function createNewQuestion(formData: FormData) {
   const type = formData.get("type") as "DATES" | "TERMINOLOGIE" | "FIGURES";
   const slug = slugify(name);
   const subjectPage = slugify(subjectName);
+  try {
+    const existingQuestion = await prisma.question.findFirst({
+      where: { name: name },
+    });
 
-  await prisma.question.create({
-    data: {
-      name,
-      description,
-      unit,
-      subjectName,
-      status: 0,
-      type,
-      slug,
-    },
-  });
-  revalidatePath("/revision");
-  redirect(`/${subjectPage}/revision`);
+    if (existingQuestion) {
+      throw new Error("Question name already exists.");
+    }
+
+    await prisma.question.create({
+      data: {
+        name,
+        description,
+        unit,
+        subjectName,
+        status: 0,
+        type,
+        slug,
+      },
+    });
+    revalidatePath("/revision");
+    redirect(`/${subjectPage}/revision`);
+  } catch (error) {
+    return { error: getErrorMessage(error) };
+  }
 }
+
 export async function deleteQuestion(formData: FormData) {
   const id = formData.get("questionId") as string;
   await prisma.question.delete({
@@ -114,4 +126,15 @@ export async function deleteSubject(formData: FormData) {
     where: { id },
   });
   revalidatePath("/");
+}
+
+export async function stausUpdate(formData: FormData) {
+  const id = formData.get("questionId") as string;
+  const status = parseInt(formData.get("updateStatus") as string);
+  const subjectPage = formData.get("questionSubject") as string;
+  await prisma.question.update({
+    where: { id },
+    data: { status },
+  });
+  revalidatePath(`/${subjectPage}/quiz`);
 }

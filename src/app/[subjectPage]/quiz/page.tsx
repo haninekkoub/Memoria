@@ -1,5 +1,6 @@
 import getAllQuestions from "@/lib/getAllQuestions";
 import QuizForm from "../components/quizForm";
+import { unstable_noStore } from "next/cache";
 
 type Params = {
   params: {
@@ -8,6 +9,8 @@ type Params = {
 };
 
 export default async function Quiz({ params: { subjectPage } }: Params) {
+  unstable_noStore;
+
   const { questions } = await getAllQuestions(subjectPage);
   if (!questions.length) {
     return <p>No questions found</p>;
