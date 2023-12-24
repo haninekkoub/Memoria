@@ -14,7 +14,7 @@ export default async function subjectLayout({
   if (!subject) notFound();
   return (
     <section
-      className="h-dvh pt-[75px]  font-drukWideWeb text-4xl relative overflow-hidden flex flex-col"
+      className="h-screen pt-[75px]  font-drukWideWeb text-4xl relative overflow-hidden flex flex-col"
       style={{ backgroundColor: `${subject.color}` }}
     >
       <h1 className="px-6 z-20 relative">{subjectPage}</h1>
