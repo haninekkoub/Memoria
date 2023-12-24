@@ -64,7 +64,7 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
           <h1>Search</h1>
         </Link>
       </div>
-      <div className="flex flex-col justify-start items-center p-6 gap-5 text-2xl bg-background rounded-t-3xl h-full flex-1 font-expressway  font-extrabold ">
+      <div className="flex flex-col justify-start items-center p-6 gap-5 text-xl bg-background rounded-t-3xl h-full flex-1 font-expressway  font-extrabold ">
         <div className="flex  justify-between items-center w-full  text-2xl">
           <h3>Les unite</h3>
           <h4>{questionsCount} Question</h4>
