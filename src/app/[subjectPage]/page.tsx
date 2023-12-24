@@ -31,7 +31,7 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
   );
 
   return (
-    <div className="h-full bg-red-500 flex flex-col ">
+    <div className="z-20 relative">
       <div className="flex justify-center items-center gap-5 my-10 md:gap-10 px-6">
         <Link
           href={`/${subjectPage}/revision`}
@@ -64,16 +64,16 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
           <h1>Search</h1>
         </Link>
       </div>
-      <div className="flex flex-col justify-center items-start p-6 gap-5 text-2xl bg-background rounded-3xl h-full flex-1">
-        <div className="flex  justify-between items-center w-full">
+      <div className="flex flex-col justify-start items-center p-6 gap-5 text-2xl bg-background rounded-t-3xl h-full flex-1 font-expressway  font-extrabold ">
+        <div className="flex  justify-between items-center w-full  text-2xl">
           <h3>Les unite</h3>
-          <h4>{questionsCount}</h4>
+          <h4>{questionsCount} Question</h4>
         </div>
 
         {displayedUnits.map((unit, index) => (
           <div
             key={index}
-            className="p-4 w-full text-center rounded-3xl"
+            className="p-4 w-full text-center rounded-3xl max-w-[554px] "
             style={
               unit
                 ? {
