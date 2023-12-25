@@ -3,5 +3,9 @@ export default async function RevisionLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section className="px-6 ">{children}</section>;
+  return (
+    <section className="px-6 overflow-y-auto pb-12 no-scrollbar">
+      {children}
+    </section>
+  );
 }
