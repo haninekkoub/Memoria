@@ -6,10 +6,13 @@ export default async function Subject() {
   const subjects: Subject[] = await getAllSubjects();
 
   return (
-    <div className="w-full flex flex-col md:flex-row gap-6 p-6 mt-[100px]">
+    <div className="w-full flex flex-col md:flex-row gap-6 mt-[100px] ">
       {subjects.map((subject, i) => {
         return (
-          <div className="flex flex-col gap-2 w-full flex-2 mx-auto" key={i}>
+          <div
+            className="flex flex-col gap-2 w-full flex-2 mx-auto relative"
+            key={i}
+          >
             <Link
               href={`/${subject.slug}`}
               className="h-40 relative rounded-3xl drop-shadow-3xl flex-wrap "
@@ -19,7 +22,8 @@ export default async function Subject() {
                 {subject.name}
               </div>
             </Link>
-            <DeletSubject subjectId={subject.id} />
+
+            <DeletSubject subjectId={subject.id} subjectName={subject.name} />
           </div>
         );
       })}

@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 type Params = {
   params: {
@@ -26,13 +27,14 @@ export default async function Revision({ params: { subjectPage } }: Params) {
   const { questions } = await getAllQuestions(subjectPage);
   return (
     <div>
-      <Link href="/" className="font-drukWideWeb">
-        go gome
-      </Link>
-      <Link href={`/${subjectPage}`}>back</Link>
-      <PopUp title={"Add Question"}>
-        <AddNewQuestionForm />
-      </PopUp>
+      <div className="flex justify-end gap-4 w-full bg-orange-200">
+        <Button variant="outline">
+          <Link href={`/${subjectPage}`}>back</Link>
+        </Button>
+        <PopUp title={"Add Question"}>
+          <AddNewQuestionForm />
+        </PopUp>
+      </div>
       {questions.map((question) => {
         return (
           <Dialog key={question.id}>

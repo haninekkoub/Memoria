@@ -35,37 +35,39 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
       <div className="flex justify-center items-center gap-5 my-10 md:gap-10 px-6">
         <Link
           href={`/${subjectPage}/revision`}
-          className={`text-sm px-2 py-10 rounded-2xl filter flex-1 text-center md:max-w-[150px]`}
+          className={`text-sm px-2 py-10 rounded-2xl filter flex-1 text-center md:max-w-[150px] `}
           style={{
             backgroundColor: `${subject.color}`,
-            filter: "brightness(80%)",
+            filter:
+              "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5)) brightness(80%)",
           }}
         >
           <h1>Revision</h1>
         </Link>
         <Link
           href={`/${subjectPage}/quiz`}
-          className={`text-sm px-2 py-10 rounded-2xl filter flex-1 text-center md:max-w-[150px]`}
+          className={`text-sm px-2 py-10 rounded-2xl filter flex-1 text-center md:max-w-[150px] `}
           style={{
             backgroundColor: `${subject.color}`,
-            filter: "brightness(80%)",
+            filter:
+              "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5)) brightness(80%)",
           }}
         >
           <h1>quiz</h1>
         </Link>
-        <Link
-          href={"/"}
-          className={`text-sm px-2 py-10 rounded-2xl filter flex-1 text-center md:max-w-[150px]`}
+        <div
+          className={`text-sm px-2 py-10 rounded-2xl filter flex-1 text-center md:max-w-[150px] cursor-not-allowed`}
           style={{
             backgroundColor: `${subject.color}`,
-            filter: "brightness(80%)",
+            filter:
+              "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5)) brightness(80%)",
           }}
         >
           <h1>Search</h1>
-        </Link>
+        </div>
       </div>
-      <div className="flex flex-col justify-start items-center p-6 gap-5 text-xl bg-background rounded-t-3xl h-full flex-1 font-expressway  font-extrabold ">
-        <div className="flex  justify-between items-center w-full  text-2xl">
+      <div className="flex flex-col justify-start items-center p-6 gap-5 text-xl bg-background rounded-t-3xl h-full flex-1 font-expressway font-extrabold">
+        <div className="flex  justify-between items-center w-full  text-2xl max-w-[554px] ">
           <h3>Les unite</h3>
           <h4>{questionsCount} Question</h4>
         </div>
