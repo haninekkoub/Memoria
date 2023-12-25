@@ -27,7 +27,7 @@ export default async function Revision({ params: { subjectPage } }: Params) {
   const { questions } = await getAllQuestions(subjectPage);
   return (
     <div>
-      <div className="flex justify-end gap-4 w-full bg-orange-200">
+      <div className="flex justify-end gap-4 w-full">
         <Button variant="outline">
           <Link href={`/${subjectPage}`}>back</Link>
         </Button>
