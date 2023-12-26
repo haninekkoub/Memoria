@@ -52,17 +52,12 @@ export default async function Revision({ params: { subjectPage } }: Params) {
                 {/* <Link href={`/${subjectPage}/${question.slug}/update`}>update</Link> */}
               </div>
             </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>title</DialogTitle>
-              </DialogHeader>
-              <h3 className="w-full text-right overflow-hidden whitespace-nowrap ">
-                {question.description}
-              </h3>
-              <h3 className="w-40 text-right overflow-hidden whitespace-nowrap">
-                {question.name}
-              </h3>
-              <h3 className="w-[50px] text-right ">{question.status}</h3>
+            <DialogContent className="flex flex-col justify-center items-center px-4 gap-4 py-6">
+              <span className="flex gap-4">
+                <h3>{question.name}</h3>
+                <h3 className=" ">{question.status}</h3>
+              </span>
+              <h3 className="text-right">{question.description}</h3>
             </DialogContent>
           </Dialog>
         );

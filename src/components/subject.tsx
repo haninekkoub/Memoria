@@ -6,7 +6,7 @@ export default async function Subject() {
   const subjects: Subject[] = await getAllSubjects();
 
   return (
-    <div className="w-full flex flex-col md:flex-row gap-6 mt-[100px] ">
+    <div className="w-full flex flex-col md:flex-row gap-6 mt-[50px] ">
       {subjects.map((subject, i) => {
         return (
           <div
