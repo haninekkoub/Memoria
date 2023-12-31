@@ -1,9 +1,11 @@
+"use client";
+
 import { updateQuestion } from "@/app/action";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-export default async function UpdateQuestion({
+export default function UpdateQuestion({
   questionName,
   questionDescription,
   questionId,
@@ -12,9 +14,12 @@ export default async function UpdateQuestion({
   questionDescription: string;
   questionId: string;
 }) {
+  async function clientAction(formData: FormData) {
+    const response = await updateQuestion(formData);
+  }
   return (
     <form
-      action={updateQuestion}
+      action={clientAction}
       className="flex flex-col justify-center items-center gap-4 w-full pt-6"
     >
       <Input

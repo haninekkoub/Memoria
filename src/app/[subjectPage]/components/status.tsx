@@ -1,14 +1,10 @@
-import getAllQuestions from "@/lib/getAllQuestions";
-
-export default async function Status({
+export default function Status({
+  statusCounts,
   questionStatus,
-  subjectPage,
 }: {
+  statusCounts: number;
   questionStatus: number;
-  subjectPage: string;
 }) {
-  const { statusCounts } = await getAllQuestions(subjectPage);
-
   let backgroundColor: string;
 
   if (questionStatus === statusCounts) {

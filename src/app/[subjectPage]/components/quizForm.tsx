@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 export default function QuizForm({ questions }: { questions: Question[] }) {
   unstable_noStore;
   const [currentQuestion, setCurrentQuestion] = useState<Question>();
-  console.log("this is question", currentQuestion);
   const [randomPart, setRandomPart] = useState("");
   const [respondPart, setRespondPart] = useState("");
   const [userResponse, setUserResponse] = useState("");
@@ -19,7 +18,6 @@ export default function QuizForm({ questions }: { questions: Question[] }) {
   });
   const [responseSubmitted, setResponseSubmitted] = useState(false);
   const [updateStatus, setUpdateStatus] = useState<number>();
-  console.log("this is updateStatus :", updateStatus);
 
   const getRandomQuestionPart = () => {
     const randomIndex = Math.floor(Math.random() * questions.length);

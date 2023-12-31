@@ -22,7 +22,7 @@ type Params = {
 export default async function Revision({ params: { subjectPage } }: Params) {
   unstable_noStore;
 
-  const { questions } = await getAllQuestions(subjectPage);
+  const { questions, statusCounts } = await getAllQuestions(subjectPage);
   return (
     <div className="relative">
       <div className="flex justify-end gap-4 w-full md:sticky top-0 mb-4">
@@ -55,10 +55,9 @@ export default async function Revision({ params: { subjectPage } }: Params) {
                   {question.name}
                   <Status
                     questionStatus={question.status}
-                    subjectPage={subjectPage}
+                    statusCounts={statusCounts}
                   />
                 </h3>
-                {/* <DeletQuestion questionId={question.id} /> */}
               </div>
             </DialogTrigger>
             <DialogContent>
@@ -67,7 +66,7 @@ export default async function Revision({ params: { subjectPage } }: Params) {
                 questionDescription={question.description}
                 questionStatus={question.status}
                 questionId={question.id}
-                subjectPage={subjectPage}
+                statusCounts={statusCounts}
               />
             </DialogContent>
           </Dialog>
