@@ -1,77 +1,37 @@
 import { updateQuestion } from "@/app/action";
-import { notFound } from "next/navigation";
-import getAllSubject from "@/lib/getAllSubjects";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 export default async function UpdateQuestion({
-  currentQuestion,
+  questionName,
+  questionDescription,
   questionId,
 }: {
-  currentQuestion: Question;
+  questionName: string;
+  questionDescription: string;
   questionId: string;
 }) {
-  const subjects = await getAllSubject();
-  if (!subjects) notFound();
-
   return (
-    <div>
-      hello new form
-      <form
-        className="bg-red-200 flex flex-col justify-center items-center gap-4 p-4 mb-4"
-        action={updateQuestion}
-      >
-        <label>
-          <span>unit</span>
-          <input
-            required
-            type="number"
-            name="unit"
-            defaultValue={currentQuestion.unit}
-          />
-        </label>
-        <label>
-          <span>type</span>
-          <select name="type" defaultValue={currentQuestion.type}>
-            <option value="DATES">date</option>
-            <option value="TERMINOLOGIE">terminologie</option>
-            <option value="FIGURES">figures</option>
-          </select>
-        </label>
-        <label>
-          <span>subjectName</span>
-          <select name="subjectName">
-            {subjects.map((subject, i) => {
-              return (
-                <option key={i} value={subject.name}>
-                  {subject.name}
-                </option>
-              );
-            })}
-          </select>
-        </label>
-        <label>
-          <span>name</span>
-          <input
-            required
-            type="text"
-            name="name"
-            defaultValue={currentQuestion.name}
-          />
-        </label>
-        <label>
-          <span>description</span>
-          <textarea
-            required
-            name="description"
-            defaultValue={currentQuestion.description}
-          />
-        </label>
-        <label>
-          <span>status</span>
-          <input required name="status" defaultValue={currentQuestion.status} />
-        </label>
-        <input name="questionId" type="hidden" value={questionId} />
-        <button>submit</button>
-      </form>
-    </div>
+    <form
+      action={updateQuestion}
+      className="flex flex-col justify-center items-center gap-4 w-full pt-6"
+    >
+      <Input
+        required
+        type="text"
+        name="name"
+        defaultValue={questionName}
+        className="bg-background w-fit rounded-md py-1 px-0 drop-shadow-none border border-brown"
+      />
+      <Textarea
+        className="text-right h-fit w-full"
+        required
+        name="description"
+        defaultValue={questionDescription}
+      />
+      <input name="questionId" type="hidden" value={questionId} />
+      <Button> submit </Button>
+    </form>
   );
 }

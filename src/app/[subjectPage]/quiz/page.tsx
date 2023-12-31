@@ -16,7 +16,7 @@ export default async function Quiz({ params: { subjectPage } }: Params) {
     return <p>No questions found</p>;
   }
   return (
-    <div className="px-6 relative z-20">
+    <div className="px-6 relative z-20 overflow-y-auto pb-8 no-scrollbar">
       <QuizForm questions={questions} />
     </div>
   );

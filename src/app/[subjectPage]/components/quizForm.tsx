@@ -2,6 +2,7 @@
 
 import { stausUpdate } from "@/app/action";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { unstable_noStore } from "next/cache";
 import { useEffect, useState } from "react";
 
@@ -73,8 +74,8 @@ export default function QuizForm({ questions }: { questions: Question[] }) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-6 text-brown mt-16 md:mt-0">
-      <div className="bg-background font-aThuluth text-3xl rounded-2xl w-full flex justify-center items-center py-14 md:px-20 md:w-fit border border-brown">
+    <div className="flex flex-col justify-center items-center gap-6 text-brown mt-16 md:mt-0 md:w-fit md:max-w-[500px] mx-auto ">
+      <div className="bg-background font-aThuluth text-3xl rounded-2xl w-full flex justify-center items-center py-14 px-2 md:px-20 md:w-fit border border-brown text-center">
         {randomPart}
       </div>
       <form
@@ -93,12 +94,11 @@ export default function QuizForm({ questions }: { questions: Question[] }) {
           type="hidden"
           value={updateStatus?.toString()}
         />
-        <Input
+        <Textarea
           onChange={(e) => setUserResponse(e.target.value)}
           placeholder={`Respond   here`}
-          type="text"
           value={userResponse}
-          className=" font-aThuluth text-3xl rounded-2xl py-8 md:py-10 md:px-20 md:w-fit"
+          className=" font-aThuluth text-3xl rounded-2xl py-8 md:py-10 md:px-4 md:w-full placeholder:whitespace-nowrap"
           disabled={responseSubmitted}
         />
         <div className="flex justify-center items-center gap-6 font-semibold font-expressway text-2xl">

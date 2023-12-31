@@ -75,18 +75,19 @@ export default async function subjectPage({ params: { subjectPage } }: Params) {
         {displayedUnits.map((unit, index) => (
           <div
             key={index}
-            className="p-4 w-full text-center rounded-3xl max-w-[554px] "
+            className="p-4 w-full text-center rounded-3xl max-w-[554px] font-extrabold font-drukWideWeb"
             style={
               unit
                 ? {
-                    backgroundColor: `${subject.color}`,
+                    backgroundColor: "transparent",
                     filter: "brightness(80%)",
                     border: "1px solid",
                     borderColor: `${subject.color}`,
-                    color: "#fff3cd",
+                    color: `${subject.color}`,
                   }
                 : {
-                    backgroundColor: "#fff3cd",
+                    backgroundColor: "transparent",
+                    filter: "brightness(80%)",
                     border: "1px solid",
                     borderColor: `${subject.color}`,
                     color: `${subject.color}`,

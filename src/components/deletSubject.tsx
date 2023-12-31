@@ -21,7 +21,10 @@ export default function DeletSubject({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost" className="w-fit absolute top-2 right-0">
+        <Button
+          variant="ghost"
+          className="w-fit absolute top-2 right-0 hover:bg-transparent"
+        >
           <svg
             width="30"
             height="30"

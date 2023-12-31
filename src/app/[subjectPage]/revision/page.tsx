@@ -1,9 +1,7 @@
 import getAllQuestions from "@/lib/getAllQuestions";
 import Link from "next/link";
 import { unstable_noStore } from "next/cache";
-
 import AddNewQuestionForm from "../components/addNewQuestion";
-
 import {
   Dialog,
   DialogContent,
@@ -13,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import Status from "../components/status";
+import Question from "../components/question";
 
 type Params = {
   params: {
@@ -39,7 +38,7 @@ export default async function Revision({ params: { subjectPage } }: Params) {
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle> Add a new Question</DialogTitle>
+            <DialogTitle>Add a new Question</DialogTitle>
           </DialogHeader>
           <AddNewQuestionForm />
         </DialogContent>
@@ -60,18 +59,16 @@ export default async function Revision({ params: { subjectPage } }: Params) {
                   />
                 </h3>
                 {/* <DeletQuestion questionId={question.id} /> */}
-                {/* <Link href={`/${subjectPage}/${question.slug}/update`}>update</Link> */}
               </div>
             </DialogTrigger>
-            <DialogContent className="flex flex-col justify-center items-center px-4 gap-4 py-6">
-              <span className="flex gap-4 justify-center items-center">
-                <h3>{question.name}</h3>
-                <Status
-                  questionStatus={question.status}
-                  subjectPage={subjectPage}
-                />
-              </span>
-              <h3 className="text-right">{question.description}</h3>
+            <DialogContent>
+              <Question
+                questionName={question.name}
+                questionDescription={question.description}
+                questionStatus={question.status}
+                questionId={question.id}
+                subjectPage={subjectPage}
+              />
             </DialogContent>
           </Dialog>
         );

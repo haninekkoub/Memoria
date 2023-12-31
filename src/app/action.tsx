@@ -67,29 +67,23 @@ export async function updateQuestion(formData: FormData) {
   const id = formData.get("questionId") as string;
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
-  const status = parseInt(formData.get("status") as string);
-  const unit = parseInt(formData.get("unit") as string);
-  const subjectName = formData.get("subjectName") as string;
-  const type = formData.get("type") as "DATES" | "TERMINOLOGIE" | "FIGURES";
+  // const status = parseInt(formData.get("status") as string);
+  // const unit = parseInt(formData.get("unit") as string);
+  // const subjectName = formData.get("subjectName") as string;
+  // const type = formData.get("type") as "DATES" | "TERMINOLOGIE" | "FIGURES";
   const slug = slugify(name);
-  const subjectPage = slugify(subjectName);
+  // const subjectPage = slugify(subjectName);
 
   await prisma.question.update({
     where: { id },
     data: {
       name,
       description,
-      unit,
-      subjectName,
-      status,
-      type,
       slug,
     },
   });
 
   revalidatePath("/revision");
-
-  redirect(`/${subjectPage}/revision`);
 }
 
 export async function createNewSubject(newSubject: unknown) {
@@ -103,20 +97,19 @@ export async function createNewSubject(newSubject: unknown) {
     return { error: errorMessage };
   }
   try {
-    const existingSubject = await prisma.subject.findFirst({
-      where: { name: result.data.name },
-    });
-
-    if (existingSubject) {
-      throw new Error("Subject name already exists.");
-    }
     const slug = slugify(result.data.name);
     await prisma.subject.create({
       data: { name: result.data.name, color: result.data.color, slug },
     });
     revalidatePath("/");
   } catch (error) {
-    return { error: getErrorMessage(error) };
+    return {
+      error: getErrorMessage(error).includes(
+        "Unique constraint failed on the fields: (`name`)"
+      )
+        ? "name existing"
+        : "uknown eror",
+    };
   }
 }
 

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,19 +8,19 @@ import {
 
 export default function PopUp({
   children,
+  button,
   title,
 }: {
   children: React.ReactNode;
+  button: JSX.Element;
   title: string;
 }) {
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">{title}</Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{button}</DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle className="text-center">{title}</DialogTitle>
         </DialogHeader>
         {children}
       </DialogContent>
