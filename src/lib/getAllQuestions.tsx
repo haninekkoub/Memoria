@@ -24,7 +24,6 @@ export default async function getAllQuestions(subjectPage: string) {
 
   return {
     questions,
-    questionsCount: questions.length,
     units,
     statusCounts: Math.round(
       statusCounts._avg.status ? statusCounts._avg.status : 0

@@ -4,6 +4,7 @@ import Link from "next/link";
 import getSubject from "@/lib/getSubject";
 import { notFound } from "next/navigation";
 import getAllSubjects from "@/lib/getAllSubjects";
+import { unstable_noStore } from "next/cache";
 
 type Params = {
   params: {
@@ -22,10 +23,12 @@ export async function generateMetadata({
 }
 
 export default async function subjectPage({ params: { subjectPage } }: Params) {
+  unstable_noStore;
+
   const subject = await getSubject(subjectPage);
   if (!subject) notFound();
-  const { questionsCount, units } = await getAllQuestions(subject.name);
-
+  const { questions, units } = await getAllQuestions(subject.name);
+  const questionsCount = questions.length;
   const displayedUnits = units.concat(
     Array(Math.max(0, 3 - units.length)).fill(null)
   );

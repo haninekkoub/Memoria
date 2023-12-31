@@ -7,3 +7,14 @@ export const SubjectSchema = z.object({
 
 });
 export type Subject = z.infer<typeof SubjectSchema>;
+
+
+export const QuestionSchema = z.object({
+    unit: z.number().int().positive(), 
+    name: z.string().min(1).max(20),
+    description: z.string(),
+    type: z.enum(['DATES', 'TERMINOLOGIE', 'FIGURES']), // Restrict type to allowed values
+    subjectName: z.string(),
+  });
+
+export type Question = z.infer<typeof QuestionSchema>;

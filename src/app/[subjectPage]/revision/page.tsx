@@ -20,8 +20,6 @@ type Params = {
 };
 
 export default async function Revision({ params: { subjectPage } }: Params) {
-  unstable_noStore;
-
   const { questions, statusCounts } = await getAllQuestions(subjectPage);
   return (
     <div className="relative">
@@ -40,7 +38,7 @@ export default async function Revision({ params: { subjectPage } }: Params) {
           <DialogHeader>
             <DialogTitle>Add a new Question</DialogTitle>
           </DialogHeader>
-          <AddNewQuestionForm />
+          <AddNewQuestionForm subjectName={subjectPage} />
         </DialogContent>
       </Dialog>
       {questions.map((question) => {

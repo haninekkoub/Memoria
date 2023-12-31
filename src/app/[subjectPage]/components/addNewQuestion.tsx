@@ -1,37 +1,65 @@
+"use client";
 import { createNewQuestion } from "@/app/action";
-import getAllSubject from "@/lib/getAllSubjects";
-import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "@/components/ui/use-toast";
+import { QuestionSchema } from "@/lib/types";
+import { useState } from "react";
 
-export default async function AddNewQuestionForm() {
-  const subjects = await getAllSubject();
-  if (!subjects) notFound();
+export default function AddNewQuestionForm({
+  subjectName,
+}: {
+  subjectName: string;
+}) {
+  const [error, setError] = useState("");
 
+  async function clientAction(formData: FormData) {
+    const newQuestion = {
+      subjectName: formData.get("subjectPage"),
+      unit: parseInt(formData.get("unit") as string),
+      type: formData.get("type"),
+      name: formData.get("name"),
+      description: formData.get("description"),
+    };
+    const result = QuestionSchema.safeParse(newQuestion);
+    if (!result.success) {
+      let errorMessage = "";
+      result.error.issues.forEach((issue) => {
+        errorMessage += issue.message + "\n";
+      });
+      return;
+    }
+    const response = await createNewQuestion(result.data);
+    if (response?.error) {
+      setError(response.error);
+    } else {
+      toast({
+        description: "your Question is added",
+      });
+      setError("");
+    }
+  }
   return (
     <div>
       <form
         className="flex flex-col justify-center items-start gap-8"
-        action={createNewQuestion}
+        action={clientAction}
       >
+        <input name="subjectPage" hidden value={subjectName} />
         <div className="flex justify-between items-start md:gap-8 w-full">
-          <Label className="w-40 md:w-full">
+          <Label>
             <span className="text-xl md:text-2xl text-brown font-bold">
-              Subject :
+              Type :
             </span>
             <select
-              name="subjectName"
+              name="type"
               className="bg-background text-xl rounded-md p-2 border border-brown drop-shadow-input"
             >
-              {subjects.map((subject, i) => {
-                return (
-                  <option key={i} value={subject.name}>
-                    {subject.name}
-                  </option>
-                );
-              })}
+              <option value="DATES">date</option>
+              <option value="TERMINOLOGIE">terminologie</option>
+              <option value="FIGURES">figures</option>
             </select>
           </Label>
           <Label className="w-20 md:w-32">
@@ -46,19 +74,6 @@ export default async function AddNewQuestionForm() {
             />
           </Label>
         </div>
-        <Label>
-          <span className="text-xl md:text-2xl text-brown font-bold">
-            Type :
-          </span>
-          <select
-            name="type"
-            className="bg-background text-xl rounded-md p-2 border border-brown drop-shadow-input"
-          >
-            <option value="DATES">date</option>
-            <option value="TERMINOLOGIE">terminologie</option>
-            <option value="FIGURES">figures</option>
-          </select>
-        </Label>
         <Label>
           <span className="text-xl md:text-2xl text-brown font-bold">
             Name :
@@ -82,6 +97,7 @@ export default async function AddNewQuestionForm() {
         </Label>
 
         <Button className="text-background">submit</Button>
+        {error && <p className="text-red-500 ">{error}</p>}
       </form>
     </div>
   );

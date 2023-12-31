@@ -13,10 +13,9 @@ type Question = {
     slug : string
     description: string,
     status: number,
-    type: QuestionType,
+    type:"DATES" | "TERMINOLOGIE" | "FIGURES"
     subjectName: string | null
   };
 
-  type QuestionType = "DATES" | "TERMINOLOGIE" | "FIGURES";
   
 

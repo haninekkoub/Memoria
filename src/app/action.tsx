@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import slugify from "slugify";
-import { SubjectSchema } from "@/lib/types";
+import { QuestionSchema, SubjectSchema } from "@/lib/types";
 
 export const getErrorMessage = (error: unknown): string => {
   let message: string;
@@ -20,40 +20,71 @@ export const getErrorMessage = (error: unknown): string => {
   return message;
 };
 
-export async function createNewQuestion(formData: FormData) {
-  const name = formData.get("name") as string;
-  const description = formData.get("description") as string;
-  const unit = parseInt(formData.get("unit") as string);
-  const subjectName = formData.get("subjectName") as string;
-  const type = formData.get("type") as "DATES" | "TERMINOLOGIE" | "FIGURES";
-  const slug = slugify(name);
-  const subjectPage = slugify(subjectName);
-  try {
-    const existingQuestion = await prisma.question.findFirst({
-      where: { name: name },
+export async function createNewQuestion(newQuestion: unknown) {
+  const result = QuestionSchema.safeParse(newQuestion);
+  console.log(result);
+  if (!result.success) {
+    let errorMessage = "";
+    result.error.issues.forEach((issue) => {
+      errorMessage += issue.message + "\n";
     });
-
-    if (existingQuestion) {
-      throw new Error("Question name already exists.");
-    }
+    return { error: errorMessage };
+  }
+  try {
+    const slug = slugify(result.data.name);
+    const subjectPage = slugify(result.data.subjectName);
 
     await prisma.question.create({
       data: {
-        name,
-        description,
-        unit,
-        subjectName,
-        status: 0,
-        type,
         slug,
+        name: result.data.name,
+        description: result.data.description,
+        unit: result.data.unit,
+        subjectName: result.data.subjectName,
+        status: 0,
+        type: result.data.type,
       },
     });
-    revalidatePath("/revision");
-    redirect(`/${subjectPage}/revision`);
+    revalidatePath(`/${subjectPage}/revision`);
+    revalidatePath(`/${subjectPage}`);
   } catch (error) {
-    return { error: getErrorMessage(error) };
+    return {
+      error: getErrorMessage(error),
+    };
   }
 }
+
+// export async function createNewQuestion(newQuestion: : unknown) {
+//   try {
+//     const name = formData.get("name") as string;
+//     const description = formData.get("description") as string;
+//     const unit = parseInt(formData.get("unit") as string);
+//     const subjectName = formData.get("subjectName") as string;
+//     const type = formData.get("type") as "DATES" | "TERMINOLOGIE" | "FIGURES";
+//     const slug = slugify(name);
+//     const subjectPage = slugify(subjectName);
+
+//     console.log(slug);
+//     const resuult = await prisma.question.create({
+//       data: {
+//         name,
+//         description,
+//         unit,
+//         subjectName,
+//         status: 0,
+//         type,
+//         slug,
+//       },
+//     });
+//     console.log(resuult);
+//     revalidatePath("/revision");
+//     redirect(`/${subjectPage}/revision`);
+//   } catch (error) {
+//     return {
+//       error: getErrorMessage(error),
+//     };
+//   }
+// }
 
 export async function deleteQuestion(formData: FormData) {
   const id = formData.get("questionId") as string;
