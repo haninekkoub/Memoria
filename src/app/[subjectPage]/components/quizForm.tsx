@@ -1,7 +1,6 @@
 "use client";
 
 import { stausUpdate } from "@/app/action";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { unstable_noStore } from "next/cache";
 import { useEffect, useState } from "react";
@@ -84,7 +83,7 @@ export default function QuizForm({ questions }: { questions: Question[] }) {
         <input
           name="questionSubject"
           type="hidden"
-          value={currentQuestion?.subjectName!}
+          value={currentQuestion?.subjectSlug!}
         />
 
         <input

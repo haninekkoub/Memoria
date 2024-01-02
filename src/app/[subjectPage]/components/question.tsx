@@ -58,13 +58,7 @@ export default function Question({
               statusCounts={statusCounts}
             />
           </span>
-          <h3
-            contentEditable={true}
-            className="text-right"
-            onBlur={(e) => console.log(e.currentTarget.innerText)}
-          >
-            {questionDescription}
-          </h3>
+          <h3 className="text-right">{questionDescription}</h3>
         </div>
       ) : (
         <UpdateQuestion

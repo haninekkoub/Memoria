@@ -14,7 +14,7 @@ type Question = {
     description: string,
     status: number,
     type:"DATES" | "TERMINOLOGIE" | "FIGURES"
-    subjectName: string | null
+    subjectSlug: string | null
   };
 
   

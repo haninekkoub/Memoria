@@ -22,7 +22,6 @@ export const getErrorMessage = (error: unknown): string => {
 
 export async function createNewQuestion(newQuestion: unknown) {
   const result = QuestionSchema.safeParse(newQuestion);
-  console.log(result);
   if (!result.success) {
     let errorMessage = "";
     result.error.issues.forEach((issue) => {
