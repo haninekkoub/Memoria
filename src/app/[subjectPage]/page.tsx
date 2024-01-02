@@ -5,6 +5,7 @@ import getSubject from "@/lib/getSubject";
 import { notFound } from "next/navigation";
 import getAllSubjects from "@/lib/getAllSubjects";
 import { unstable_noStore } from "next/cache";
+import BackButton from "./components/backButton";
 
 type Params = {
   params: {

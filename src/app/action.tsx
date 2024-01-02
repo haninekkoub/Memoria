@@ -54,38 +54,6 @@ export async function createNewQuestion(newQuestion: unknown) {
   }
 }
 
-// export async function createNewQuestion(newQuestion: : unknown) {
-//   try {
-//     const name = formData.get("name") as string;
-//     const description = formData.get("description") as string;
-//     const unit = parseInt(formData.get("unit") as string);
-//     const subjectName = formData.get("subjectName") as string;
-//     const type = formData.get("type") as "DATES" | "TERMINOLOGIE" | "FIGURES";
-//     const slug = slugify(name);
-//     const subjectPage = slugify(subjectName);
-
-//     console.log(slug);
-//     const resuult = await prisma.question.create({
-//       data: {
-//         name,
-//         description,
-//         unit,
-//         subjectName,
-//         status: 0,
-//         type,
-//         slug,
-//       },
-//     });
-//     console.log(resuult);
-//     revalidatePath("/revision");
-//     redirect(`/${subjectPage}/revision`);
-//   } catch (error) {
-//     return {
-//       error: getErrorMessage(error),
-//     };
-//   }
-// }
-
 export async function deleteQuestion(formData: FormData) {
   const id = formData.get("questionId") as string;
   await prisma.question.delete({
@@ -98,23 +66,24 @@ export async function updateQuestion(formData: FormData) {
   const id = formData.get("questionId") as string;
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
-  // const status = parseInt(formData.get("status") as string);
-  // const unit = parseInt(formData.get("unit") as string);
-  // const subjectName = formData.get("subjectName") as string;
-  // const type = formData.get("type") as "DATES" | "TERMINOLOGIE" | "FIGURES";
   const slug = slugify(name);
   // const subjectPage = slugify(subjectName);
+  try {
+    await prisma.question.update({
+      where: { id },
+      data: {
+        name,
+        description,
+        slug,
+      },
+    });
 
-  await prisma.question.update({
-    where: { id },
-    data: {
-      name,
-      description,
-      slug,
-    },
-  });
-
-  revalidatePath("/revision");
+    revalidatePath("/revision");
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+    };
+  }
 }
 
 export async function createNewSubject(newSubject: unknown) {
