@@ -49,13 +49,15 @@ export default async function Revision({ params: { subjectPage } }: Params) {
                 <h3 className="w-full text-right overflow-hidden whitespace-nowrap">
                   {question.description}
                 </h3>
-                <h3 className="w-40 text-right overflow-hidden whitespace-nowrap flex gap-4 justify-end items-center">
-                  {question.name}
+                <div className="  flex gap-4 justify-end items-center">
+                  <h3 className="w-16 md:w-20 text-right overflow-hidden whitespace-nowrap">
+                    {question.name}
+                  </h3>
                   <Status
                     questionStatus={question.status}
                     statusCounts={statusCounts}
                   />
-                </h3>
+                </div>
               </div>
             </DialogTrigger>
             <DialogContent>
