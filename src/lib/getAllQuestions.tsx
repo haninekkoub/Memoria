@@ -3,19 +3,19 @@ import prisma from "./prisma";
 export default async function getAllQuestions(subjectPage: string) {
   const questions = await prisma.question.findMany({
     where: {
-      subjectName: subjectPage,
+      subjectSlug: subjectPage,
     },
   });
 
   const units = await prisma.question.groupBy({
     by: "unit",
     where: {
-      subjectName: subjectPage,
+      subjectSlug: subjectPage,
     },
   });
   const statusCounts = await prisma.question.aggregate({
     where: {
-      subjectName: subjectPage,
+      subjectSlug: subjectPage,
     },
     _avg: {
       status: true,

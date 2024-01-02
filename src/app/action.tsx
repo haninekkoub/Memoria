@@ -32,7 +32,6 @@ export async function createNewQuestion(newQuestion: unknown) {
   }
   try {
     const slug = slugify(result.data.name);
-    const subjectPage = slugify(result.data.subjectName);
 
     await prisma.question.create({
       data: {
@@ -40,13 +39,13 @@ export async function createNewQuestion(newQuestion: unknown) {
         name: result.data.name,
         description: result.data.description,
         unit: result.data.unit,
-        subjectName: result.data.subjectName,
+        subjectSlug: result.data.subjectSlug,
         status: 0,
         type: result.data.type,
       },
     });
-    revalidatePath(`/${subjectPage}/revision`);
-    revalidatePath(`/${subjectPage}`);
+    revalidatePath(`/${result.data.subjectSlug}/revision`);
+    revalidatePath(`/${result.data.subjectSlug}`);
   } catch (error) {
     return {
       error: getErrorMessage(error),
@@ -67,7 +66,6 @@ export async function updateQuestion(formData: FormData) {
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
   const slug = slugify(name);
-  // const subjectPage = slugify(subjectName);
   try {
     await prisma.question.update({
       where: { id },

@@ -9,15 +9,15 @@ import { QuestionSchema } from "@/lib/types";
 import { useState } from "react";
 
 export default function AddNewQuestionForm({
-  subjectName,
+  subjectSlug,
 }: {
-  subjectName: string;
+  subjectSlug: string;
 }) {
   const [error, setError] = useState("");
 
   async function clientAction(formData: FormData) {
     const newQuestion = {
-      subjectName: formData.get("subjectPage"),
+      subjectSlug: formData.get("subjectSlug"),
       unit: parseInt(formData.get("unit") as string),
       type: formData.get("type"),
       name: formData.get("name"),
@@ -50,7 +50,7 @@ export default function AddNewQuestionForm({
         className="flex flex-col justify-center items-start gap-8"
         action={clientAction}
       >
-        <input name="subjectPage" hidden value={subjectName} />
+        <input name="subjectSlug" hidden value={subjectSlug} />
         <div className="flex justify-between items-start gap-4 md:gap-8 w-full">
           <Label>
             <span className="text-xl md:text-2xl text-brown font-bold">

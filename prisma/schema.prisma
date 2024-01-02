@@ -39,8 +39,8 @@ model Question {
     description String
     status      Int
     type        QuestionType
-    subjectName String?
-    subject     Subject?     @relation(fields: [subjectName], references: [name])
+    subjectSlug String?
+    subject     Subject?     @relation(fields: [subjectSlug], references: [slug])
 }
 
 enum QuestionType {

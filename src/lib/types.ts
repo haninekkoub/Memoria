@@ -14,7 +14,7 @@ export const QuestionSchema = z.object({
     name: z.string().min(1).max(30),
     description: z.string(),
     type: z.enum(['DATES', 'TERMINOLOGIE', 'FIGURES']), // Restrict type to allowed values
-    subjectName: z.string(),
+    subjectSlug: z.string(),
   });
 
 export type Question = z.infer<typeof QuestionSchema>;

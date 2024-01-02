@@ -38,7 +38,7 @@ export default async function Revision({ params: { subjectPage } }: Params) {
           <DialogHeader>
             <DialogTitle>Add a new Question</DialogTitle>
           </DialogHeader>
-          <AddNewQuestionForm subjectName={subjectPage} />
+          <AddNewQuestionForm subjectSlug={subjectPage} />
         </DialogContent>
       </Dialog>
       {questions.map((question) => {
