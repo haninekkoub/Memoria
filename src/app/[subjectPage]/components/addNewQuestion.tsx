@@ -29,6 +29,9 @@ export default function AddNewQuestionForm({
       result.error.issues.forEach((issue) => {
         errorMessage += issue.message + "\n";
       });
+      toast({
+        description: errorMessage,
+      });
       return;
     }
     const response = await createNewQuestion(result.data);
@@ -48,7 +51,7 @@ export default function AddNewQuestionForm({
         action={clientAction}
       >
         <input name="subjectPage" hidden value={subjectName} />
-        <div className="flex justify-between items-start md:gap-8 w-full">
+        <div className="flex justify-between items-start gap-4 md:gap-8 w-full">
           <Label>
             <span className="text-xl md:text-2xl text-brown font-bold">
               Type :
